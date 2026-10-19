@@ -1,6 +1,8 @@
 apt_cache=/var/cache/apt/archives
 
-pkg="~/.uni/mirror/pkg"
+uni=~/.uni
+
+pkg="$uni/mirror/pkg"
 
 old="$pkg/old"
 
