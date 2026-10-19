@@ -42,7 +42,7 @@ compress(){
 
 main(){
 	backup_old
-	#install
+	install
 	#backup
 	#compress
 }
