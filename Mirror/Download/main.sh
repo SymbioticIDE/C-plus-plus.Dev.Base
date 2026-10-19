@@ -16,9 +16,12 @@ backup_old(){
 }
 
 install(){
+	mkdir -p $mirror
+	sudo apt-get install build-essential gcc g++ gdb clang clangd -y
+}
+
+backup(){
 	if [ ! -f $mirror/*.deb];then
-		sudo apt-get install build-essential gcc g++ gdb clang clangd -y
-		mkdir -p $mirror
 		mv $apt_cache/*.deb $mirror/
 	fi
 }
@@ -33,5 +36,8 @@ compress(){
 main(){
 	backup_old
 	install
+	backup
 	compress
 }
+
+main
