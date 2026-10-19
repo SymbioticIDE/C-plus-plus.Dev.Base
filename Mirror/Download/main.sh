@@ -15,7 +15,7 @@ compress_format=tgz
 mirror_arc="$mirror.$compress_format"
 
 backup_old(){
-	if [ -f $apt_cache/*.deb ] && [ ! -f $mirror_arc ];then
+	if [[ -f $apt_cache/*.deb ]] && [[ ! -f $mirror_arc ]];then
 		mkdir -p $old
 		sudo mv $apt_cache/*.deb $old
 		sudo chown -R $USER:$USER $old
@@ -23,12 +23,12 @@ backup_old(){
 }
 
 install(){
-	mkdir -p $mirror
 	sudo apt-get install build-essential gcc g++ gdb clang clangd -y
 }
 
 backup(){
-	if [ -f $mirror/*.deb ] && [ ! -f $mirror_arc ];then
+	mkdir -p $mirror
+	if [[ -f $mirror/*.deb ]] && [[ ! -f $mirror_arc ]];then
 		mv $apt_cache/*.deb $mirror/
 	fi
 }
