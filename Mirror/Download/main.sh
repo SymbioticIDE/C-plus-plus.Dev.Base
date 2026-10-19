@@ -1,4 +1,4 @@
-apt_cache=/var/cache/apt/archives/
+apt_cache=/var/cache/apt/archives
 
 pkg="~/.uni/mirror/pkg"
 
@@ -7,6 +7,10 @@ old="$pkg/old"
 this="C-plus-plus.Base"
 
 mirror="$pkg/$this"
+
+compress_format=tgz
+
+mirror_arc="$mirror.$compress_format"
 
 backup_old(){
 	if [ ! -f $apt_cache/*.deb ];then
@@ -21,7 +25,7 @@ install(){
 }
 
 backup(){
-	if [ ! -f $mirror/*.deb];then
+	if [ -f $mirror/*.deb ] && [ ! -f $mirror_arc ];then
 		mv $apt_cache/*.deb $mirror/
 	fi
 }
@@ -35,9 +39,9 @@ compress(){
 
 main(){
 	backup_old
-	install
-	backup
-	compress
+	#install
+	#backup
+	#compress
 }
 
 main
