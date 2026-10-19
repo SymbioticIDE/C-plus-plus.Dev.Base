@@ -15,7 +15,7 @@ compress_format=tgz
 mirror_arc="$mirror.$compress_format"
 
 backup_old(){
-	if [ ! -f $apt_cache/*.deb ];then
+	if [ -f $apt_cache/*.deb ] && [ ! -f $mirror_arc ];then
 		mkdir -p $old
 		sudo mv $apt_cache/*.deb $old
 		sudo chown -R $USER:$USER $old
