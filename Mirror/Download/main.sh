@@ -4,11 +4,15 @@ pkg="~/.uni/mirror/pkg"
 
 old="$pkg/old"
 
-mirror="$pkg/C-plus-plus.Base"
+this="C-plus-plus.Base"
+
+mirror="$pkg/$this"
 
 backup_old(){
-	mkdir -p $old
-	mv $apt_cache/*.deb $old
+	if [ ! -f $apt_cache/*.deb ];then
+		mkdir -p $old
+		mv $apt_cache/*.deb $old
+	fi
 }
 
 install(){
@@ -19,7 +23,15 @@ install(){
 	fi
 }
 
+compress(){
+	if [ ! -f $pkg/$this.tgz ];then
+		cd $pkg
+		tar cfvz $this.tgz $this
+	fi
+}
+
 main(){
 	backup_old
 	install
+	compress
 }
