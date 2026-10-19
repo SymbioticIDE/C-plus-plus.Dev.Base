@@ -17,7 +17,8 @@ mirror_arc="$mirror.$compress_format"
 backup_old(){
 	if [ ! -f $apt_cache/*.deb ];then
 		mkdir -p $old
-		mv $apt_cache/*.deb $old
+		sudo mv $apt_cache/*.deb $old
+		sudo chown -R $USER:$USER $old
 	fi
 }
 
