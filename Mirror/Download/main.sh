@@ -26,25 +26,33 @@ install(){
 	sudo apt-get install build-essential gcc g++ gdb clang clangd -y
 }
 
-backup(){
+backup_mirror(){
 	mkdir -p $mirror
-	if [[ -f $mirror/*.deb ]] && [[ ! -f $mirror_arc ]];then
-		mv $apt_cache/*.deb $mirror/
+	if [[ ! -f $mirror/*.deb ]] && [[ ! -f $mirror_arc ]];then
+		sudo mv $apt_cache/*.deb $mirror/
+		sudo chown -R $USER:$USER $mirror
 	fi
 }
 
 compress(){
-	if [ ! -f $pkg/$this.tgz ];then
+	if [ ! -f $mirror.tgz ];then
 		cd $pkg
 		tar cfvz $this.tgz $this
+	fi
+}
+
+remove_mirror_dir(){
+	if [ -f $pkg/$this.tgz ];then
+		rm -r $mirror
 	fi
 }
 
 main(){
 	backup_old
 	install
-	#backup
-	#compress
+	backup_mirror
+	compress
+	remove_mirror_dir
 }
 
 main
